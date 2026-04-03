@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>蔡芷妍 UNIVERSE</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:#0B0B0F;color:#fff;font-family:'Noto Sans TC',sans-serif;overflow:hidden;height:100dvh;max-width:430px;margin:0 auto;position:relative}
+button{font-family:'Noto Sans TC',sans-serif;cursor:pointer}
+input,textarea,select{font-family:'Noto Sans TC',sans-serif}
+::-webkit-scrollbar{display:none}
+.serif{font-family:'Noto Serif TC',serif}
+.page{height:calc(100dvh - 56px);overflow-y:auto;overflow-x:hidden;padding-bottom:80px}
+.hidden{display:none!important}
+
+/* Splash */
+#splash{position:fixed;inset:0;background:#0B0B0F;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;overflow:hidden;transition:opacity 0.8s}
+.particle{position:absolute;width:3px;height:3px;border-radius:50%}
+#hb-line{margin-bottom:36px;transition:opacity 0.7s}
+#splash-tagline{font-family:'Noto Serif TC',serif;font-size:15px;color:#888;letter-spacing:0.3em;text-align:center;padding:0 40px;margin-bottom:20px;opacity:0;transform:translateY(20px);transition:opacity 0.7s,transform 0.7s}
+#splash-brand{display:flex;flex-direction:column;align-items:center;opacity:0;transform:translateY(24px) scale(0.85);transition:opacity 0.7s,transform 0.7s}
+#splash-av{width:110px;height:110px;border-radius:50%;overflow:hidden;border:2px solid #BF00FF;box-shadow:0 0 28px #BF00FF88;margin-bottom:14px;animation:breathe 3s ease-in-out infinite}
+#splash-av img{width:100%;height:100%;display:block}
+#splash-name{font-family:'Noto Serif TC',serif;font-size:30px;font-weight:900;background:linear-gradient(135deg,#BF00FF,#00E4FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+#splash-sub{font-size:11px;color:#555;letter-spacing:0.4em;margin-top:3px}
+
+/* Bottom Nav */
+#nav{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:0 auto;background:rgba(11,11,15,0.96);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.06);display:flex;z-index:90;height:56px}
+.nav-btn{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:8px 0 12px;opacity:0.35;transition:opacity 0.2s}
+.nav-btn.active{opacity:1}
+.nav-btn span:first-child{font-size:19px}
+.nav-btn span:last-child{font-size:10px;color:#555}
+.nav-btn.active span:last-child{color:#BF00FF}
+
+/* Mini Player */
+#mini{position:fixed;bottom:56px;left:7px;right:7px;max-width:416px;margin:0 auto;background:rgba(18,18,26,0.92);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:9px 13px;display:flex;align-items:center;gap:11px;cursor:pointer;z-index:100;box-shadow:0 8px 28px rgba(0,0,0,0.5)}
+#mini-cover{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+#mini-info{flex:1;min-width:0}
+#mini-name{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#mini-bar{height:2px;background:#333;border-radius:1px;margin-top:5px;overflow:hidden}
+#mini-prog{height:100%;background:#BF00FF;width:0%;transition:width 0.5s}
+#mini-btn{background:rgba(191,0,255,0.2);border:none;border-radius:50%;width:34px;height:34px;color:#BF00FF;font-size:13px;display:flex;align-items:center;justify-content:center}
+
+/* Full Player */
+#full{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;padding:56px 30px 36px;animation:slideUp 0.4s cubic-bezier(0.16,1,0.3,1)}
+#full-art{width:220px;height:220px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:72px;margin-bottom:28px;flex-shrink:0}
+#full-prog{width:100%;margin-bottom:18px}
+#full-prog input[type=range]{width:100%;height:4px;cursor:pointer;accent-color:#BF00FF}
+#full-times{display:flex;justify-content:space-between;font-size:11px;color:#666;margin-top:3px}
+#full-controls{display:flex;align-items:center;gap:26px;margin-bottom:22px}
+.ctrl-btn{background:none;border:none;color:#aaa;font-size:21px}
+#full-play{width:60px;height:60px;border-radius:50%;border:none;color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center}
+
+/* Home */
+#home-header{padding:52px 24px 18px;background:linear-gradient(180deg,rgba(191,0,255,0.06) 0%,transparent 100%)}
+.feat-card{min-width:170px;border-radius:16px;padding:16px;cursor:pointer;flex-shrink:0}
+.emo-btn{border:none;border-radius:18px;padding:5px 13px;font-size:12px;cursor:pointer;white-space:nowrap;color:#888;background:rgba(255,255,255,0.06)}
+.emo-btn.active{color:#fff}
+.section-bar{width:3px;height:15px;border-radius:2px;display:inline-block;margin-right:7px;vertical-align:middle}
+.song-card{display:flex;align-items:center;gap:11px;padding:11px 14px;background:rgba(255,255,255,0.03);border-radius:13px;border:1px solid rgba(255,255,255,0.04);cursor:pointer;margin-bottom:7px;transition:background 0.2s}
+.song-card.active{background:rgba(191,0,255,0.08);border-color:rgba(191,0,255,0.2)}
+.song-cover{width:46px;height:46px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.song-name{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.emo-tag{font-size:10px;border-radius:5px;padding:1px 6px}
+.fav-btn{background:none;border:none;font-size:15px;color:#444;flex-shrink:0}
+.fav-btn.active{color:#BF00FF}
+
+/* Playlist */
+.tab-bar{display:flex;border-bottom:1px solid rgba(255,255,255,0.06)}
+.tab-btn{flex:1;background:none;border:none;border-bottom:2px solid transparent;color:#666;padding:10px 0;font-size:13px}
+.tab-btn.active{color:#BF00FF;border-bottom-color:#BF00FF}
+.pl-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;overflow:hidden;margin-bottom:9px}
+.pl-header{display:flex;align-items:center;gap:11px;padding:12px 14px}
+.pl-cover{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#1a0a2a,#2a0a4a);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.check-box{width:17px;height:17px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;background:rgba(255,255,255,0.08)}
+.check-box.checked{background:#BF00FF;border:none}
+
+/* Lyrics */
+#lyrics-page{height:calc(100dvh - 56px);display:flex;flex-direction:column;position:relative;overflow:hidden}
+#lyrics-bg{position:absolute;inset:0;z-index:0}
+#lyrics-blur{position:absolute;inset:0;backdrop-filter:blur(60px);-webkit-backdrop-filter:blur(60px);background:rgba(11,11,15,0.75);z-index:0}
+#lyrics-header{position:relative;z-index:1;padding:52px 22px 14px}
+#lyrics-body{flex:1;overflow-y:auto;position:relative;z-index:1;padding:0 22px 90px}
+.lyric-line{padding:9px 0;font-family:'Noto Serif TC',serif;font-size:14px;color:#555;opacity:0.6;transition:all 0.4s}
+.lyric-line.active{font-size:19px;font-weight:700;color:#fff;opacity:1}
+.lyric-line.past{color:#444;opacity:0.4}
+#lyrics-play-btn{position:absolute;bottom:72px;left:0;right:0;z-index:2;display:flex;justify-content:center}
+#lyrics-play-btn button{width:50px;height:50px;border-radius:50%;border:none;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center}
+
+/* Profile */
+.row-item{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;background:rgba(255,255,255,0.03);border-radius:11px;margin-bottom:2px;cursor:pointer}
+.toggle{width:38px;height:20px;border-radius:10px;background:#333;position:relative;transition:background 0.3s;flex-shrink:0}
+.toggle.on{background:#BF00FF}
+.toggle-dot{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left 0.3s}
+.toggle.on .toggle-dot{left:20px}
+.modal-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.7);display:flex;align-items:flex-end;justify-content:center}
+.modal-box{width:100%;max-width:430px;background:#13131e;border:1px solid rgba(191,0,255,0.2);border-radius:18px 18px 0 0;padding:26px 22px 44px}
+.modal-handle{width:38px;height:4px;background:#333;border-radius:2px;margin:0 auto 22px}
+
+/* Admin */
+#admin{position:fixed;inset:0;z-index:1000;background:#0d0d14;display:flex;flex-direction:column;overflow-y:auto}
+#admin-topbar{background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.07);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;flex-shrink:0}
+#admin-body{display:flex;flex:1;min-height:0}
+#admin-sidebar{width:130px;background:rgba(255,255,255,0.02);border-right:1px solid rgba(255,255,255,0.06);padding:12px 8px;flex-shrink:0}
+.admin-tab{width:100%;background:none;border:1px solid transparent;border-radius:9px;padding:9px 10px;color:#777;font-size:13px;text-align:left;display:flex;align-items:center;gap:7px;margin-bottom:3px;cursor:pointer}
+.admin-tab.active{background:rgba(191,0,255,0.12);border-color:rgba(191,0,255,0.27);color:#BF00FF}
+#admin-content{flex:1;overflow-y:auto;padding:18px 20px}
+.song-row{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:11px 14px;display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.admin-btn{border:none;border-radius:6px;padding:3px 9px;font-size:11px;cursor:pointer}
+.si{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 12px;color:#e8e8e8;font-size:13px;outline:none}
+
+/* Auth */
+#auth{position:absolute;inset:0;background:#0B0B0F;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:44px 24px 40px;z-index:500;opacity:0;transition:opacity 0.5s}
+.auth-input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:11px 14px;color:#e8e8e8;font-size:14px;outline:none;margin-bottom:12px}
+.avatar-pick{width:36px;height:36px;border-radius:9px;font-size:18px;background:rgba(255,255,255,0.05);border:1.5px solid transparent;cursor:pointer}
+.avatar-pick.selected{background:rgba(191,0,255,0.2);border-color:#BF00FF}
+
+/* Toast */
+#toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#14532d;border:1px solid #22c55e;border-radius:9px;padding:9px 18px;color:#fff;font-size:13px;z-index:9999;white-space:nowrap;display:none;animation:fadeIn 0.2s ease}
+
+/* Modal form */
+#song-form{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px}
+#song-form-box{background:#13131e;border:1px solid rgba(255,255,255,0.1);border-radius:18px;width:100%;max-width:520px;max-height:88vh;overflow-y:auto;padding:22px}
+
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes fl0{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+@keyframes fl1{0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)}}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+
+<!-- SPLASH -->
+<div id="splash">
+  <div id="particles"></div>
+  <svg id="hb-line" width="200" height="36" style="opacity:0">
+    <polyline id="hb-poly" points="0,18 30,18 40,4 50,32 60,4 70,18 100,18 110,4 120,32 130,18 200,18" fill="none" stroke="#BF00FF" stroke-width="2" style="stroke-dasharray:300;stroke-dashoffset:300;transition:stroke-dashoffset 1.2s ease"/>
+  </svg>
+  <div id="splash-tagline">如果這世界容不下我們的愛</div>
+  <div id="splash-brand">
+    <div id="splash-av"><img src="data:image/jpeg;base64,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" alt="蔡芷妍"></div>
+    <div id="splash-name">蔡芷妍</div>
+    <div id="splash-sub">UNIVERSE</div>
+  </div>
+</div>
+
+<!-- AUTH -->
+<div id="auth" class="hidden">
+  <!-- 返回按鈕 -->
+  <button onclick="backFromAuth()" style="position:absolute;top:16px;left:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:7px 14px;color:#aaa;font-size:13px;display:flex;align-items:center;gap:5px;cursor:pointer;z-index:10">‹ 返回</button>
+  <div style="text-align:center;margin-bottom:28px">
+    <div style="font-size:38px;margin-bottom:6px">🔥</div>
+    <div class="serif" style="font-size:22px;font-weight:900;background:linear-gradient(135deg,#BF00FF,#00E4FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent">蔡芷妍</div>
+    <div style="font-size:10px;color:#555;letter-spacing:0.35em;margin-top:3px">UNIVERSE</div>
+  </div>
+  <div style="display:flex;width:100%;max-width:360px;background:rgba(255,255,255,0.04);border-radius:12px;padding:3px;margin-bottom:16px">
+    <button id="auth-tab-login" onclick="switchAuthMode('login')" style="flex:1;border:none;border-radius:9px;padding:8px 0;background:rgba(191,0,255,0.18);color:#BF00FF;font-size:13px;font-weight:700">登入</button>
+    <button id="auth-tab-reg" onclick="switchAuthMode('register')" style="flex:1;border:none;border-radius:9px;padding:8px 0;background:none;color:#666;font-size:13px">註冊</button>
+  </div>
+  <div id="auth-card" style="width:100%;max-width:360px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:22px 20px">
+    <div id="reg-fields" class="hidden">
+      <div style="font-size:12px;color:#888;margin-bottom:8px">選擇頭像</div>
+      <div id="avatar-grid" style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px"></div>
+      <div style="font-size:12px;color:#888;margin-bottom:5px">暱稱</div>
+      <input id="auth-name" class="auth-input" placeholder="你的暱稱">
+    </div>
+    <div style="font-size:12px;color:#888;margin-bottom:5px">電子郵件</div>
+    <input id="auth-email" class="auth-input" type="email" placeholder="your@email.com">
+    <div style="font-size:12px;color:#888;margin-bottom:5px" id="pw-label">密碼</div>
+    <div style="position:relative;margin-bottom:12px">
+      <input id="auth-pw" class="auth-input" type="password" placeholder="••••••••" style="margin-bottom:0;padding-right:42px">
+      <button onclick="togglePw()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:#666;font-size:15px" id="pw-eye">👁</button>
+    </div>
+    <div id="confirm-field" class="hidden">
+      <div style="font-size:12px;color:#888;margin-bottom:5px">確認密碼</div>
+      <input id="auth-pw2" class="auth-input" type="password" placeholder="再輸入一次">
+    </div>
+    <div id="auth-err" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:12px;color:#ef4444;display:none"></div>
+    <div id="auth-ok" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:12px;color:#22c55e;display:none"></div>
+    <button id="auth-submit" onclick="submitAuth()" style="width:100%;background:linear-gradient(135deg,#BF00FF,#00E4FF);border:none;border-radius:12px;padding:12px;color:#fff;font-size:14px;font-weight:700">登入</button>
+
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="hidden">
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page">
+    <div id="home-header">
+      <div style="font-size:11px;color:#BF00FF;letter-spacing:0.3em;margin-bottom:3px">MUSIC UNIVERSE</div>
+      <div class="serif" style="font-size:26px;font-weight:900">蔡芷妍</div>
+      <div style="font-size:12px;color:#666;margin-top:3px">用音樂書寫靈魂</div>
+    </div>
+    <div id="featured-wrap" style="padding:0 16px;margin-bottom:24px">
+      <div style="font-size:11px;color:#888;letter-spacing:0.2em;margin-bottom:9px">⭐ 推薦歌曲</div>
+      <div id="featured-list" style="display:flex;gap:9px;overflow-x:auto;padding-bottom:3px"></div>
+    </div>
+    <div style="padding:0 16px;margin-bottom:18px">
+      <div style="font-size:11px;color:#666;margin-bottom:9px">情緒篩選</div>
+      <div id="emo-filters" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:3px"></div>
+    </div>
+    <div id="section-hua" style="margin-bottom:24px">
+      <div style="display:flex;align-items:center;padding:0 16px;margin-bottom:10px">
+        <span class="section-bar" style="background:#9B4DFF"></span>
+        <span class="serif" style="font-size:15px;font-weight:700">華語流行</span>
+        <span id="hua-count" style="font-size:11px;color:#555;margin-left:7px"></span>
+      </div>
+      <div id="hua-list" style="padding:0 16px"></div>
+    </div>
+    <div id="section-tai" style="margin-bottom:24px">
+      <div style="display:flex;align-items:center;padding:0 16px;margin-bottom:10px">
+        <span class="section-bar" style="background:#00FFCC"></span>
+        <span class="serif" style="font-size:15px;font-weight:700">台語流行</span>
+        <span id="tai-count" style="font-size:11px;color:#555;margin-left:7px"></span>
+      </div>
+      <div id="tai-list" style="padding:0 16px"></div>
+    </div>
+  </div>
+
+  <!-- PLAYLIST PAGE -->
+  <div id="page-playlist" class="page hidden">
+    <div style="padding:52px 24px 18px"><div class="serif" style="font-size:22px;font-weight:700">我的音樂</div></div>
+    <div class="tab-bar">
+      <button class="tab-btn active" id="pl-tab-fav" onclick="switchPlTab('fav')">❤️ 收藏</button>
+      <button class="tab-btn" id="pl-tab-pls" onclick="switchPlTab('pls')">🎵 歌單</button>
+    </div>
+    <div id="pl-fav" style="padding:14px 16px"></div>
+    <div id="pl-pls" class="hidden" style="padding:14px 16px">
+      <button onclick="showNewPL()" id="new-pl-btn" style="width:100%;margin-bottom:12px;background:rgba(191,0,255,0.07);border:1px dashed rgba(191,0,255,0.35);border-radius:13px;padding:11px;color:#BF00FF;font-size:13px">＋ 建立新歌單</button>
+      <div id="new-pl-form" class="hidden" style="display:flex;gap:8px;margin-bottom:12px">
+        <input id="new-pl-name" style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(191,0,255,0.27);border-radius:8px;padding:7px 10px;color:#fff;font-size:13px;outline:none" placeholder="歌單名稱…">
+        <button onclick="createPL()" style="background:#BF00FF;border:none;border-radius:8px;padding:7px 14px;color:#fff;font-size:13px">建立</button>
+        <button onclick="cancelNewPL()" style="background:none;border:1px solid #333;border-radius:8px;padding:7px 9px;color:#666;font-size:13px">✕</button>
+      </div>
+      <div id="pl-list"></div>
+      <div id="pl-empty" style="text-align:center;color:#444;padding:44px 0;font-size:13px">🎵<br>還沒有自訂歌單</div>
+    </div>
+  </div>
+
+  <!-- LYRICS PAGE -->
+  <div id="page-lyrics" class="hidden" style="height:calc(100dvh - 56px);display:flex;flex-direction:column;position:relative;overflow:hidden">
+    <div id="lyrics-bg"></div>
+    <div id="lyrics-blur"></div>
+    <div id="lyrics-header">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div>
+          <div class="serif" id="ly-name" style="font-size:15px;font-weight:700"></div>
+          <div id="ly-artist" style="font-size:11px;color:#666;margin-top:2px"></div>
+        </div>
+        <div style="display:flex;gap:5px">
+          <button id="ly-sync-btn" onclick="setLyricMode('sync')" style="background:rgba(191,0,255,0.2);border:1px solid rgba(191,0,255,0.4);border-radius:7px;padding:3px 9px;color:#BF00FF;font-size:11px">同步</button>
+          <button id="ly-text-btn" onclick="setLyricMode('text')" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:3px 9px;color:#888;font-size:11px">純文字</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:7px;align-items:center">
+        <span id="ly-cur" style="font-size:11px;color:#BF00FF;font-variant-numeric:tabular-nums">00:00</span>
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.1)"><div id="ly-bar" style="height:100%;background:#BF00FF;width:0%"></div></div>
+        <span id="ly-total" style="font-size:11px;color:#555;font-variant-numeric:tabular-nums">00:00</span>
+      </div>
+    </div>
+    <div id="lyrics-body"></div>
+    <div id="lyrics-play-btn"><button id="ly-play" onclick="togglePlay()" style="width:50px;height:50px;border-radius:50%;border:none;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center">▶</button></div>
+  </div>
+
+  <!-- PROFILE PAGE -->
+  <div id="page-profile" class="page hidden">
+    <div style="padding:0 22px 20px;display:flex;align-items:center;justify-content:space-between;padding-top:52px">
+      <div class="serif" style="font-size:22px;font-weight:700">我的</div>
+      <div id="admin-badge" class="hidden" style="font-size:10px;color:#00E4FF;background:rgba(0,228,255,0.1);border:1px solid rgba(0,228,255,0.27);border-radius:5px;padding:2px 7px">管理員</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;padding:0 22px 22px">
+      <div id="prof-av" style="width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#BF00FF,#9B4DFF);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:10px">👤</div>
+      <div id="prof-name" style="font-size:15px;font-weight:600;color:#555">尚未登入</div>
+      <div id="prof-email" style="font-size:12px;color:#555;margin-top:3px">登入後享受完整功能</div>
+      <div style="display:flex;gap:22px;margin-top:14px">
+        <div style="text-align:center"><div id="prof-fav-count" style="font-size:19px;font-weight:700;color:#BF00FF">0</div><div style="font-size:11px;color:#666">收藏</div></div>
+        <div style="width:1px;background:#333"></div>
+        <div style="text-align:center"><div style="font-size:19px;font-weight:700;color:#9B4DFF">0</div><div style="font-size:11px;color:#666">歌單</div></div>
+      </div>
+    </div>
+    <div style="padding:0 14px;display:flex;flex-direction:column;gap:2px">
+      <div class="row-item" onclick="toggleDark()">
+        <div style="display:flex;align-items:center;gap:11px"><span style="font-size:17px">🌙</span><span style="font-size:14px;color:#ddd">深色模式</span></div>
+        <div id="dark-toggle" class="toggle on"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row-item"><div style="display:flex;align-items:center;gap:11px"><span style="font-size:17px">🎵</span><span style="font-size:14px;color:#ddd">音質設定</span></div><span style="font-size:12px;color:#555">高音質</span></div>
+      <div class="row-item"><div style="display:flex;align-items:center;gap:11px"><span style="font-size:17px">🌏</span><span style="font-size:14px;color:#ddd">語言</span></div><span style="font-size:12px;color:#555">繁體中文</span></div>
+      <div class="row-item" onclick="showAbout()"><div style="display:flex;align-items:center;gap:11px"><span style="font-size:17px">👤</span><span style="font-size:14px;color:#ddd">關於蔡芷妍</span></div><span style="color:#555;font-size:13px">›</span></div>
+      <div class="row-item" onclick="showSocial()"><div style="display:flex;align-items:center;gap:11px"><span style="font-size:17px">📱</span><span style="font-size:14px;color:#ddd">社群連結</span></div><span style="color:#555;font-size:13px">›</span></div>
+      <div class="row-item"><div style="display:flex;align-items:center;gap:11px"><span style="font-size:17px">🔒</span><span style="font-size:14px;color:#ddd">隱私權政策</span></div><span style="color:#555;font-size:13px">›</span></div>
+      <div class="row-item"><div style="display:flex;align-items:center;gap:11px"><span style="font-size:17px">📋</span><span style="font-size:14px;color:#ddd">使用條款</span></div><span style="color:#555;font-size:13px">›</span></div>
+      <div class="row-item"><div style="display:flex;align-items:center;gap:11px"><span style="font-size:17px">🗑️</span><span style="font-size:14px;color:#BF00FF">刪除帳號</span></div><span style="color:#555;font-size:13px">›</span></div>
+    </div>
+    <div style="padding:14px 14px 0">
+      <div style="background:linear-gradient(135deg,rgba(191,0,255,0.12),rgba(0,228,255,0.08));border:1px solid rgba(191,0,255,0.27);border-radius:14px;padding:18px">
+        <div class="serif" style="font-size:15px;font-weight:700;margin-bottom:5px">🔥 解鎖完整宇宙</div>
+        <div style="font-size:12px;color:#888;line-height:1.7">訂閱月費，享受高音質、搶先聽歌、專屬內容。</div>
+        <button style="margin-top:13px;width:100%;background:linear-gradient(135deg,#BF00FF,#00E4FF);border:none;border-radius:11px;padding:11px;color:#fff;font-size:14px;font-weight:700">NT$149 / 月 立即訂閱</button>
+        <div style="display:flex;gap:7px;margin-top:9px">
+          <button style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:7px;padding:7px 0;color:#aaa;font-size:11px">💝 NT$30</button>
+          <button style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:7px;padding:7px 0;color:#aaa;font-size:11px">💝 NT$70</button>
+          <button style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:7px;padding:7px 0;color:#aaa;font-size:11px">💝 NT$150</button>
+        </div>
+      </div>
+      <button id="auth-action-btn" onclick="goLogin()" style="margin-top:7px;width:100%;background:linear-gradient(135deg,#BF00FF,#00E4FF);border:none;border-radius:11px;padding:11px;color:#fff;font-size:14px;font-weight:700">登入 / 註冊</button>
+    </div>
+  </div>
+
+  <!-- MINI PLAYER -->
+  <div id="mini" onclick="openFull()">
+    <div id="mini-cover">🎵</div>
+    <div id="mini-info">
+      <div id="mini-name">選擇歌曲開始播放</div>
+      <div id="mini-bar"><div id="mini-prog"></div></div>
+    </div>
+    <button id="mini-btn" onclick="event.stopPropagation();togglePlay()">▶</button>
+  </div>
+
+  <!-- FULL PLAYER -->
+  <div id="full" class="hidden">
+    <div style="width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:28px">
+      <button onclick="closeFull()" style="background:none;border:none;color:#888;font-size:21px">⌄</button>
+      <span style="font-size:11px;color:#888;letter-spacing:0.2em">正在播放</span>
+      <span style="width:28px"></span>
+    </div>
+    <div id="full-art" style="font-size:72px;margin-bottom:28px">🎵</div>
+    <div style="text-align:center;width:100%;margin-bottom:20px">
+      <div class="serif" id="full-name" style="font-size:21px;font-weight:700;margin-bottom:5px"></div>
+      <div id="full-artist" style="font-size:13px;color:#888"></div>
+      <div id="full-quote" style="margin-top:10px;font-size:12px;color:#666;font-style:italic;font-family:'Noto Serif TC',serif;line-height:1.6"></div>
+    </div>
+    <div id="full-prog" style="width:100%;margin-bottom:18px">
+      <input type="range" id="full-range" min="0" max="100" value="0" oninput="seekTo(this.value)" style="width:100%;height:4px;cursor:pointer;accent-color:#BF00FF">
+      <div id="full-times" style="display:flex;justify-content:space-between;font-size:11px;color:#666;margin-top:3px">
+        <span id="full-cur">00:00</span><span id="full-total">00:00</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:26px;margin-bottom:22px">
+      <button class="ctrl-btn" onclick="prevSong()">⏮</button>
+      <button id="full-play-btn" onclick="togglePlay()" style="width:60px;height:60px;border-radius:50%;border:none;color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center">▶</button>
+      <button class="ctrl-btn" onclick="nextSong()">⏭</button>
+    </div>
+    <button onclick="goLyrics()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:7px 22px;color:#aaa;font-size:12px">↑ 查看歌詞</button>
+  </div>
+
+  <!-- NAV -->
+  <div id="nav">
+    <button class="nav-btn active" id="nav-home" onclick="goPage('home')"><span>🏠</span><span>首頁</span></button>
+    <button class="nav-btn" id="nav-playlist" onclick="goPage('playlist')"><span>🎵</span><span>歌單</span></button>
+    <button class="nav-btn" id="nav-lyrics" onclick="goPage('lyrics')"><span>✦</span><span>歌詞</span></button>
+    <button class="nav-btn" id="nav-profile" onclick="goPage('profile')"><span>👤</span><span>我的</span></button>
+  </div>
+
+  <!-- Admin trigger -->
+  <button id="admin-trigger" class="hidden" onclick="openAdmin()" style="position:fixed;top:13px;right:13px;z-index:80;background:rgba(191,0,255,0.13);border:1px solid rgba(191,0,255,0.27);border-radius:9px;padding:5px 11px;color:#BF00FF;font-size:11px">⚙ 後台</button>
+</div>
+
+<!-- ADMIN -->
+<div id="admin" class="hidden">
+  <div id="admin-topbar">
+    <div class="serif" style="font-size:14px;font-weight:700">蔡芷妍 後台管理</div>
+    <button onclick="closeAdmin()" style="background:rgba(191,0,255,0.12);border:1px solid rgba(191,0,255,0.27);border-radius:8px;padding:5px 13px;color:#BF00FF;font-size:12px">← 返回 App</button>
+  </div>
+  <div id="admin-body">
+    <div id="admin-sidebar">
+      <button class="admin-tab active" id="atab-songs" onclick="switchAdminTab('songs')"><span>🎵</span><span>歌曲</span></button>
+      <button class="admin-tab" id="atab-brand" onclick="switchAdminTab('brand')"><span>✦</span><span>品牌設定</span></button>
+      <button class="admin-tab" id="atab-stats" onclick="switchAdminTab('stats')"><span>📊</span><span>統計</span></button>
+      <div style="margin-top:18px;padding:9px;background:rgba(255,255,255,0.03);border-radius:9px">
+        <div id="stat-mini"></div>
+      </div>
+    </div>
+    <div id="admin-content">
+      <div id="ac-songs">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div class="serif" style="font-size:19px;font-weight:700">歌曲管理</div>
+          <button onclick="openSongForm({})" style="background:linear-gradient(135deg,#BF00FF,#00E4FF);border:none;border-radius:9px;padding:8px 16px;color:#fff;font-size:13px;font-weight:600">＋ 新增</button>
+        </div>
+        <div style="display:flex;gap:9px;margin-bottom:14px">
+          <input id="song-search" oninput="renderAdminSongs()" class="si" placeholder="搜尋…" style="flex:1">
+          <select id="song-cat-filter" onchange="renderAdminSongs()" class="si" style="width:auto;cursor:pointer">
+            <option value="all">全部</option><option value="華語流行">華語</option><option value="台語流行">台語</option>
+          </select>
+        </div>
+        <div id="admin-song-list"></div>
+      </div>
+      <div id="ac-brand" class="hidden">
+        <div class="serif" style="font-size:19px;font-weight:700;margin-bottom:6px">品牌設定</div>
+        <div style="font-size:13px;color:#666;margin-bottom:20px">設定「關於蔡芷妍」與社群連結</div>
+        <div style="font-size:12px;color:#888;margin-bottom:5px">關於蔡芷妍（簡介）</div>
+        <textarea id="brand-bio" rows="4" class="si" style="resize:vertical;margin-bottom:16px;width:100%" placeholder="介紹自己的音樂風格…"></textarea>
+        <div style="font-size:13px;font-weight:600;color:#aaa;margin-bottom:12px">社群連結</div>
+        <div id="social-fields"></div>
+        <button onclick="saveBrand()" style="width:100%;background:linear-gradient(135deg,#BF00FF,#00E4FF);border:none;border-radius:12px;padding:12px;color:#fff;font-size:14px;font-weight:700;margin-top:6px">儲存品牌設定</button>
+      </div>
+      <div id="ac-stats" class="hidden">
+        <div class="serif" style="font-size:19px;font-weight:700;margin-bottom:20px">數據總覽</div>
+        <div id="stats-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px"></div>
+        <div id="stats-bars"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SONG FORM MODAL -->
+<div id="song-form" class="hidden">
+  <div id="song-form-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+      <div class="serif" id="form-title" style="font-size:17px;font-weight:700">新增歌曲</div>
+      <button onclick="closeSongForm()" style="background:none;border:none;color:#666;font-size:18px">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 12px">
+      <div style="margin-bottom:13px"><div style="font-size:12px;color:#888;margin-bottom:4px">歌曲名稱</div><input id="f-name" class="si" placeholder="輸入歌名"></div>
+      <div style="margin-bottom:13px"><div style="font-size:12px;color:#888;margin-bottom:4px">歌手名稱</div><input id="f-artist" class="si" value="蔡芷妍"></div>
+      <div style="margin-bottom:13px"><div style="font-size:12px;color:#888;margin-bottom:4px">時間(mm:ss)</div><input id="f-dur" class="si" placeholder="03:45"></div>
+      <div style="margin-bottom:13px"><div style="font-size:12px;color:#888;margin-bottom:4px">發行日期</div><input id="f-date" type="date" class="si"></div>
+      <div style="margin-bottom:13px"><div style="font-size:12px;color:#888;margin-bottom:4px">語言分類</div><select id="f-cat" class="si" style="cursor:pointer"><option>華語流行</option><option>台語流行</option></select></div>
+      <div style="margin-bottom:13px"><div style="font-size:12px;color:#888;margin-bottom:4px">情緒標籤</div><select id="f-emo" class="si" style="cursor:pointer"><option>失去你</option><option>為愛瘋狂</option><option>深夜失眠</option><option>痛到清醒</option></select></div>
+    </div>
+    <div style="margin-bottom:13px"><div style="font-size:12px;color:#888;margin-bottom:4px">AI 語錄</div><input id="f-quote" class="si" placeholder="播放時顯示的情緒金句…"></div>
+    <div style="margin-bottom:18px"><div style="font-size:12px;color:#888;margin-bottom:4px">LRC 歌詞（格式：[mm:ss] 歌詞）</div><textarea id="f-lrc" rows="5" class="si" style="resize:vertical;width:100%;font-family:monospace;font-size:12px" placeholder="[00:00] ♪ 前奏&#10;[00:08] 第一句歌詞"></textarea></div>
+    <div style="display:flex;gap:9px">
+      <button onclick="closeSongForm()" style="flex:1;background:none;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px;color:#777;font-size:13px">取消</button>
+      <button onclick="saveSong()" id="form-save-btn" style="flex:2;background:linear-gradient(135deg,#BF00FF,#00E4FF);border:none;border-radius:10px;padding:10px;color:#fff;font-size:14px;font-weight:700">✓ 上架歌曲</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div id="modal-about" class="hidden">
+  <div class="modal-overlay" onclick="closeModal('about')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="serif" style="font-size:17px;font-weight:700;margin-bottom:14px">關於蔡芷妍</div>
+      <div id="about-text" style="font-size:14px;color:#aaa;line-height:1.8;white-space:pre-wrap"></div>
+    </div>
+  </div>
+</div>
+<div id="modal-social" class="hidden">
+  <div class="modal-overlay" onclick="closeModal('social')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="serif" style="font-size:17px;font-weight:700;margin-bottom:18px">社群連結</div>
+      <div id="social-links"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────────────────────
+const NEON='#BF00FF',CYAN='#00E4FF',VIOLET='#9B4DFF';
+const ADMIN_ACCT={uid:'a1',email:'aerisqiane@gmail.com',pw:'momo123',role:'admin',name:'蔡芷妍（管理員）',avatar:'🎤'};
+const AVATARS=['🎧','🌙','🌹','💫','🎶','🔥','🌊','✨','🎸','🎹'];
+const EMOTIONS=[{id:'失去你',emoji:'💔',color:'#BF00FF'},{id:'為愛瘋狂',emoji:'🔥',color:'#00E4FF'},{id:'深夜失眠',emoji:'🌙',color:'#9B4DFF'},{id:'痛到清醒',emoji:'🩸',color:'#CC44FF'}];
+const SOCIALS_DEF=[{key:'ytmusic',icon:'🎵',label:'YouTube Music',ph:'https://music.youtube.com/channel/...'},{key:'youtube',icon:'▶️',label:'YouTube',ph:'https://youtube.com/@yourname'},{key:'facebook',icon:'💬',label:'Facebook',ph:'https://facebook.com/yourname'},{key:'tiktok',icon:'🎶',label:'TikTok',ph:'https://tiktok.com/@yourname'},{key:'spotify',icon:'🎧',label:'Spotify',ph:'https://open.spotify.com/artist/...'}];
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+const genId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+
+let songs=[
+  {id:'001',name:'如果這世界容不下我們的愛',artist:'蔡芷妍',dur:225,cat:'華語流行',emo:'失去你',date:'2024-03-01',featured:true,pub:true,colors:['#1a0a0a','#3a0a3a','#BF00FF'],quote:'有些愛，是燃燒殆盡後，才知道有多熾熱。',lyrics:[{t:0,x:'♪ 前奏'},{t:8,x:'走過那條我們常去的街'},{t:13,x:'霓虹燈閃爍像你的眼睛'},{t:18,x:'我以為時間會是解藥'},{t:23,x:'卻發現它只是麻醉劑'},{t:30,x:'如果這世界容不下我們的愛'},{t:36,x:'那就讓我一個人燃燒殆盡'}]},
+  {id:'002',name:'深夜三點鐘',artist:'蔡芷妍',dur:198,cat:'華語流行',emo:'深夜失眠',date:'2024-01-15',featured:false,pub:true,colors:['#050a1a','#0a1a3a','#9B4DFF'],quote:'三點鐘的思念，是清醒的人才懂的孤獨。',lyrics:[{t:0,x:'♪ 前奏'},{t:6,x:'手機螢幕的光太亮'},{t:11,x:'照出了我獨自一人的房間'},{t:16,x:'時鐘走到深夜三點'},{t:21,x:'你的消息還是沒有出現'}]},
+  {id:'003',name:'為愛瘋狂',artist:'蔡芷妍',dur:212,cat:'華語流行',emo:'為愛瘋狂',date:'2024-02-14',featured:true,pub:true,colors:['#1a0a05','#3a1a00','#00E4FF'],quote:'瘋狂，是因為清醒地知道，你值得一切代價。',lyrics:[{t:0,x:'♪ 前奏'},{t:7,x:'我知道這樣做很瘋狂'},{t:12,x:'但為了你我甘心淪陷'},{t:17,x:'理智告訴我要放手'}]},
+  {id:'004',name:'痛到清醒',artist:'蔡芷妍',dur:231,cat:'台語流行',emo:'痛到清醒',date:'2023-12-01',featured:false,pub:true,colors:['#0a0a0a','#2a0a2a','#CC44FF'],quote:'痛到清醒，才明白有些人，從來就不值得你的眼淚。',lyrics:[{t:0,x:'♪ 前奏'},{t:8,x:'愛到深處無怨尤'},{t:13,x:'這句話騙了多少人'},{t:18,x:'我用盡全部的溫柔'}]},
+  {id:'005',name:'月光下的你',artist:'蔡芷妍',dur:187,cat:'台語流行',emo:'失去你',date:'2023-10-20',featured:false,pub:true,colors:['#05050f','#0a0a2a','#4040A0'],quote:'月光照不到的地方，住著所有說不出口的想念。',lyrics:[{t:0,x:'♪ 前奏'},{t:5,x:'月光灑在空曠的街道'},{t:10,x:'我站在你離開的地方'}]},
+  {id:'006',name:'心肝寶貝',artist:'蔡芷妍',dur:203,cat:'台語流行',emo:'為愛瘋狂',date:'2024-04-01',featured:true,pub:true,colors:['#1a0510','#3a0a2a','#00FFCC'],quote:'用最古老的語言，說最深刻的愛。',lyrics:[{t:0,x:'♪ 前奏'},{t:6,x:'你是我的心肝寶貝'},{t:11,x:'甲我的心頭黏牢牢'}]},
+];
+let brand={bio:'蔡芷妍，用音樂書寫靈魂的創作歌手。\n每一首歌，都是一個真實的故事。',ytmusic:'',youtube:'',facebook:'',tiktok:'',spotify:''};
+let registeredUsers=[];
+let currentUser=null;
+let favs=['001','003'];
+let playlists=[];
+let curSong=songs[0];
+let isPlaying=false;
+let progress=0;
+let curTime=0;
+let timerInterval=null;
+let emoFilter='all';
+let authMode='login';
+let selectedAvatar=0;
+let editingFormId=null;
+let lyricMode='sync';
+let showPwFlag=false;
+let plTab='fav';
+let adminTab='songs';
+
+// ── Splash ────────────────────────────────────────────────────────────────────
+function initSplash(){
+  const p=document.getElementById('particles');
+  for(let i=0;i<18;i++){
+    const d=document.createElement('div');
+    d.className='particle';
+    d.style.cssText=`background:${i%2===0?NEON:CYAN};left:${(i*47)%100}%;top:${(i*53)%100}%;opacity:0;animation:fl${i%2} ${3+(i%3)}s ease-in-out infinite;transition:opacity 1s;animation-delay:${(i%3)*0.5}s`;
+    p.appendChild(d);
+  }
+  setTimeout(()=>{
+    document.querySelectorAll('.particle').forEach(e=>e.style.opacity='0.4');
+    document.getElementById('hb-line').style.opacity='1';
+    document.getElementById('hb-poly').style.strokeDashoffset='0';
+  },600);
+  setTimeout(()=>{
+    const t=document.getElementById('splash-tagline');
+    t.style.opacity='1';t.style.transform='translateY(0)';
+  },1600);
+  setTimeout(()=>{
+    const b=document.getElementById('splash-brand');
+    b.style.opacity='1';b.style.transform='translateY(0) scale(1)';
+  },2800);
+  setTimeout(()=>{
+    document.getElementById('splash').style.opacity='0';
+    setTimeout(()=>{
+      document.getElementById('splash').style.display='none';
+      document.getElementById('app').classList.remove('hidden');
+      try{const s=localStorage.getItem('czy_current_user');if(s)currentUser=JSON.parse(s);}catch(e){}
+      renderHome();renderPlaylist();updateProfile();
+    },800);
+  },4200);
+}
+
+// ── Player ────────────────────────────────────────────────────────────────────
+function playSong(song){
+  if(curSong&&curSong.id===song.id){togglePlay();return;}
+  curSong=song;progress=0;curTime=0;isPlaying=false;
+  updateMini();togglePlay();
+}
+function togglePlay(){
+  isPlaying=!isPlaying;
+  clearInterval(timerInterval);
+  if(isPlaying){
+    timerInterval=setInterval(()=>{
+      curTime+=0.5;
+      if(curTime>=curSong.dur){nextSong();return;}
+      progress=curTime/curSong.dur;
+      updateProgress();
+    },500);
+  }
+  updatePlayBtns();
+}
+function nextSong(){
+  const pub=songs.filter(s=>s.pub);
+  const i=pub.findIndex(s=>s.id===curSong.id);
+  curSong=pub[(i+1)%pub.length];
+  curTime=0;progress=0;isPlaying=false;
+  updateMini();togglePlay();
+}
+function prevSong(){
+  const pub=songs.filter(s=>s.pub);
+  const i=pub.findIndex(s=>s.id===curSong.id);
+  curSong=pub[(i-1+pub.length)%pub.length];
+  curTime=0;progress=0;isPlaying=false;
+  updateMini();togglePlay();
+}
+function seekTo(val){
+  progress=val/100;curTime=progress*curSong.dur;
+  updateProgress();
+}
+function updateProgress(){
+  document.getElementById('mini-prog').style.width=(progress*100)+'%';
+  const fr=document.getElementById('full-range');
+  if(fr)fr.value=progress*100;
+  document.getElementById('full-cur').textContent=fmt(curTime);
+  document.getElementById('ly-cur').textContent=fmt(curTime);
+  document.getElementById('ly-bar').style.width=(progress*100)+'%';
+  updateLyricScroll();
+}
+function updatePlayBtns(){
+  const icon=isPlaying?'⏸':'▶';
+  document.getElementById('mini-btn').textContent=icon;
+  document.getElementById('full-play-btn').textContent=icon;
+  const lb=document.getElementById('ly-play');
+  if(lb)lb.textContent=icon;
+  const mc=document.getElementById('mini-cover');
+  if(mc)mc.style.animation=isPlaying?'spin 8s linear infinite':'none';
+}
+function updateMini(){
+  if(!curSong)return;
+  document.getElementById('mini-name').textContent=curSong.name;
+  document.getElementById('mini-cover').style.background=`linear-gradient(135deg,${curSong.colors[0]},${curSong.colors[1]})`;
+  document.getElementById('full-name').textContent=curSong.name;
+  document.getElementById('full-artist').textContent=curSong.artist;
+  document.getElementById('full-quote').textContent='"'+curSong.quote+'"';
+  document.getElementById('full-art').style.background=`linear-gradient(135deg,${curSong.colors[0]},${curSong.colors[1]},${curSong.colors[2]})`;
+  document.getElementById('full-art').style.boxShadow=`0 18px 56px ${curSong.colors[1]}66`;
+  document.getElementById('full-total').textContent=fmt(curSong.dur);
+  document.getElementById('full').style.background=`radial-gradient(ellipse at top,${curSong.colors[0]} 0%,#0B0B0F 60%)`;
+  updateLyricsDisplay();
+}
+function openFull(){document.getElementById('full').classList.remove('hidden');document.getElementById('full').style.animation='slideUp 0.4s cubic-bezier(0.16,1,0.3,1)';}
+function closeFull(){document.getElementById('full').classList.add('hidden');}
+function goLyrics(){closeFull();goPage('lyrics');}
+
+// ── Lyrics ────────────────────────────────────────────────────────────────────
+function updateLyricsDisplay(){
+  if(!curSong)return;
+  const bg=document.getElementById('lyrics-bg');
+  bg.style.background=`radial-gradient(ellipse at 30% 20%,${curSong.colors[0]}cc,#0B0B0F 60%)`;
+  const lb=document.getElementById('ly-play');
+  if(lb)lb.style.background=`linear-gradient(135deg,${curSong.colors[1]},${curSong.colors[2]||curSong.colors[1]})`;
+  if(lb)lb.style.boxShadow=`0 4px 18px ${curSong.colors[1]}88`;
+  document.getElementById('ly-name').textContent=curSong.name;
+  document.getElementById('ly-artist').textContent=curSong.artist;
+  document.getElementById('ly-total').textContent=fmt(curSong.dur);
+  renderLyrics();
+}
+function renderLyrics(){
+  if(!curSong)return;
+  const body=document.getElementById('lyrics-body');
+  body.innerHTML='';
+  curSong.lyrics.forEach((l,i)=>{
+    const d=document.createElement('div');
+    d.className='lyric-line';
+    d.id='ll-'+i;
+    d.textContent=l.x;
+    if(lyricMode==='sync'){d.style.textShadow=`0 0 18px ${curSong.colors[2]},0 0 36px ${curSong.colors[2]}88`;}
+    body.appendChild(d);
+  });
+  updateLyricScroll();
+}
+function updateLyricScroll(){
+  if(!curSong||!curSong.lyrics)return;
+  const active=curSong.lyrics.reduce((a,l,i)=>l.t<=curTime?i:a,0);
+  curSong.lyrics.forEach((_,i)=>{
+    const el=document.getElementById('ll-'+i);
+    if(!el)return;
+    el.classList.remove('active','past');
+    if(lyricMode==='sync'){
+      if(i===active){el.classList.add('active');el.style.textShadow=`0 0 18px ${curSong.colors[2]},0 0 36px ${curSong.colors[2]}88`;}
+      else if(i<active){el.classList.add('past');el.style.textShadow='';}
+      else{el.style.textShadow='';el.style.opacity='0.6';}
+    } else {
+      el.style.fontSize='14px';el.style.opacity='0.8';el.style.color='#aaa';el.style.textShadow='';
+    }
+  });
+  if(lyricMode==='sync'){
+    const el=document.getElementById('ll-'+active);
+    if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+}
+function setLyricMode(m){
+  lyricMode=m;
+  document.getElementById('ly-sync-btn').style.background=m==='sync'?'rgba(191,0,255,0.2)':'rgba(255,255,255,0.05)';
+  document.getElementById('ly-sync-btn').style.color=m==='sync'?NEON:'#888';
+  document.getElementById('ly-text-btn').style.background=m==='text'?'rgba(191,0,255,0.2)':'rgba(255,255,255,0.05)';
+  document.getElementById('ly-text-btn').style.color=m==='text'?NEON:'#888';
+  renderLyrics();
+}
+
+// ── Home ──────────────────────────────────────────────────────────────────────
+function renderHome(){
+  const pub=songs.filter(s=>s.pub);
+  // Featured
+  const fl=document.getElementById('featured-list');
+  fl.innerHTML='';
+  pub.filter(s=>s.featured).forEach(s=>{
+    const d=document.createElement('div');
+    d.className='feat-card';
+    d.style.cssText=`background:linear-gradient(135deg,${s.colors[0]},${s.colors[1]});border:1px solid ${curSong&&curSong.id===s.id?s.colors[2]:'transparent'}`;
+    d.innerHTML=`<div style="font-size:26px;margin-bottom:8px">🎵</div><div class="serif" style="font-size:13px;font-weight:700;margin-bottom:3px">${s.name}</div><div style="font-size:10px;color:rgba(255,255,255,0.6)">${s.cat} · ${fmt(s.dur)}</div>`;
+    d.onclick=()=>playSong(s);
+    fl.appendChild(d);
+  });
+  // Emo filters
+  const ef=document.getElementById('emo-filters');
+  ef.innerHTML=`<button class="emo-btn ${emoFilter==='all'?'active':''}" style="${emoFilter==='all'?'background:'+NEON+';color:#fff':''}" onclick="setEmo('all')">全部</button>`;
+  EMOTIONS.forEach(e=>{
+    const b=document.createElement('button');
+    b.className='emo-btn'+(emoFilter===e.id?' active':'');
+    b.style.cssText=emoFilter===e.id?`background:${e.color};color:#fff`:'';
+    b.textContent=e.emoji+' '+e.id;
+    b.onclick=()=>setEmo(e.id);
+    ef.appendChild(b);
+  });
+  // Sections
+  renderSection('hua','華語流行',pub.filter(s=>s.cat==='華語流行'&&(emoFilter==='all'||s.emo===emoFilter)));
+  renderSection('tai','台語流行',pub.filter(s=>s.cat==='台語流行'&&(emoFilter==='all'||s.emo===emoFilter)));
+}
+function setEmo(e){emoFilter=e;renderHome();}
+function renderSection(id,title,list){
+  document.getElementById(id+'-count').textContent=list.length+' 首';
+  const el=document.getElementById(id+'-list');
+  el.innerHTML='';
+  list.forEach(s=>el.appendChild(makeSongCard(s)));
+}
+function makeSongCard(s){
+  const emo=EMOTIONS.find(e=>e.id===s.emo);
+  const isCur=curSong&&curSong.id===s.id;
+  const isFav=favs.includes(s.id);
+  const d=document.createElement('div');
+  d.className='song-card'+(isCur?' active':'');
+  d.innerHTML=`
+    <div class="song-cover" style="background:linear-gradient(135deg,${s.colors[0]},${s.colors[1]});${isCur?'box-shadow:0 0 14px '+s.colors[2]+'66;animation:spin 8s linear infinite':''}"}>🎵</div>
+    <div style="flex:1;min-width:0">
+      <div class="song-name" style="color:${isCur?NEON:'#e8e8e8'}">${s.name}</div>
+      <div style="display:flex;gap:5px;margin-top:3px">
+        ${emo?`<span class="emo-tag" style="color:${emo.color};background:${emo.color}22">${emo.emoji} ${s.emo}</span>`:''}
+        <span style="font-size:11px;color:#555">${s.cat}</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:9px">
+      <span style="font-size:11px;color:#555">${fmt(s.dur)}</span>
+      <button class="fav-btn${isFav?' active':''}" onclick="event.stopPropagation();toggleFav('${s.id}')"}>♥</button>
+    </div>`;
+  d.onclick=()=>playSong(s);
+  return d;
+}
+function toggleFav(id){
+  if(favs.includes(id))favs=favs.filter(x=>x!==id);else favs.push(id);
+  renderHome();renderPlaylist();updateProfile();
+}
+
+// ── Playlist ──────────────────────────────────────────────────────────────────
+function switchPlTab(t){
+  plTab=t;
+  document.getElementById('pl-fav').classList.toggle('hidden',t!=='fav');
+  document.getElementById('pl-pls').classList.toggle('hidden',t!=='pls');
+  document.getElementById('pl-tab-fav').classList.toggle('active',t==='fav');
+  document.getElementById('pl-tab-pls').classList.toggle('active',t==='pls');
+}
+function renderPlaylist(){
+  const pub=songs.filter(s=>s.pub);
+  // Favs
+  const fav=document.getElementById('pl-fav');
+  fav.innerHTML='';
+  const favSongs=pub.filter(s=>favs.includes(s.id));
+  if(favSongs.length===0)fav.innerHTML='<div style="text-align:center;color:#444;padding:50px 0">💔<br>還沒有收藏的歌曲</div>';
+  else favSongs.forEach(s=>fav.appendChild(makeSongCard(s)));
+  // Playlists
+  renderPLList();
+}
+function renderPLList(){
+  const el=document.getElementById('pl-list');
+  el.innerHTML='';
+  document.getElementById('pl-empty').style.display=playlists.length?'none':'block';
+  playlists.forEach(pl=>el.appendChild(makePLCard(pl)));
+}
+function makePLCard(pl){
+  const pub=songs.filter(s=>s.pub);
+  const plSongs=pub.filter(s=>pl.sids.includes(s.id));
+  const d=document.createElement('div');
+  d.className='pl-card';
+  d.innerHTML=`
+    <div class="pl-header">
+      <div class="pl-cover">🎵</div>
+      <div style="flex:1;min-width:0;cursor:pointer" onclick="togglePLOpen('${pl.id}')">
+        <div style="font-size:14px;font-weight:600;color:#e0e0e0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${pl.name}</div>
+        <div style="font-size:11px;color:#555;margin-top:2px">${plSongs.length} 首</div>
+      </div>
+      <div style="display:flex;gap:5px;flex-shrink:0">
+        <button onclick="togglePLAdd('${pl.id}')" style="background:rgba(191,0,255,0.12);border:1px solid rgba(191,0,255,0.27);border-radius:7px;padding:3px 8px;color:#BF00FF;font-size:11px">＋</button>
+        <button onclick="deletePL('${pl.id}')" style="background:none;border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:3px 7px;color:#555;font-size:11px">🗑</button>
+      </div>
+    </div>
+    <div id="pl-add-${pl.id}" class="hidden" style="border-top:1px solid rgba(255,255,255,0.06);padding:9px 14px;max-height:180px;overflow-y:auto">
+      <div style="font-size:11px;color:#BF00FF;margin-bottom:7px">選擇要加入的歌曲</div>
+      ${pub.map(s=>{
+        const inPL=pl.sids.includes(s.id);
+        return `<div onclick="toggleSongInPL('${pl.id}','${s.id}')" style="display:flex;align-items:center;gap:9px;padding:6px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.04)">
+          <div class="check-box${inPL?' checked':''}" id="cb-${pl.id}-${s.id}">${inPL?'✓':''}</div>
+          <div style="flex:1;font-size:13px;color:#ddd;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.name}</div>
+          <span style="font-size:11px;color:#555">${fmt(s.dur)}</span>
+        </div>`;
+      }).join('')}
+    </div>
+    <div id="pl-songs-${pl.id}" class="hidden" style="border-top:1px solid rgba(255,255,255,0.06);padding:7px 14px">
+      ${plSongs.length===0?'<div style="font-size:12px;color:#444;text-align:center;padding:14px 0">點 ＋ 加入歌曲</div>':
+        plSongs.map(s=>`<div onclick="playSong(songs.find(x=>x.id==='${s.id}'))" style="display:flex;align-items:center;gap:9px;padding:7px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.04)">
+          <div style="width:34px;height:34px;border-radius:7px;background:linear-gradient(135deg,${s.colors[0]},${s.colors[1]});display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">🎵</div>
+          <div style="flex:1;font-size:13px;font-weight:600;color:${curSong&&curSong.id===s.id?NEON:'#e0e0e0'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.name}</div>
+          <span style="font-size:11px;color:#555">${fmt(s.dur)}</span>
+        </div>`).join('')
+      }
+    </div>`;
+  return d;
+}
+function showNewPL(){document.getElementById('new-pl-btn').classList.add('hidden');document.getElementById('new-pl-form').classList.remove('hidden');document.getElementById('new-pl-name').focus();}
+function cancelNewPL(){document.getElementById('new-pl-btn').classList.remove('hidden');document.getElementById('new-pl-form').classList.add('hidden');document.getElementById('new-pl-name').value='';}
+function createPL(){
+  const n=document.getElementById('new-pl-name').value.trim();
+  if(!n)return;
+  playlists.push({id:genId(),name:n,sids:[]});
+  cancelNewPL();renderPLList();
+}
+function deletePL(id){playlists=playlists.filter(p=>p.id!==id);renderPLList();}
+function togglePLOpen(id){const el=document.getElementById('pl-songs-'+id);el&&el.classList.toggle('hidden');}
+function togglePLAdd(id){const el=document.getElementById('pl-add-'+id);el&&el.classList.toggle('hidden');}
+function toggleSongInPL(plId,songId){
+  const pl=playlists.find(p=>p.id===plId);
+  if(!pl)return;
+  if(pl.sids.includes(songId))pl.sids=pl.sids.filter(x=>x!==songId);else pl.sids.push(songId);
+  renderPLList();
+}
+
+// ── Profile ───────────────────────────────────────────────────────────────────
+function updateProfile(){
+  const u=currentUser;
+  document.getElementById('prof-name').textContent=u?u.name:'尚未登入';
+  document.getElementById('prof-name').style.color=u?'#fff':'#555';
+  document.getElementById('prof-email').textContent=u?u.email:'登入後享受完整功能';
+  document.getElementById('prof-av').textContent=u?u.avatar:'👤';
+  document.getElementById('prof-av').style.background=u?(u.role==='admin'?`linear-gradient(135deg,${NEON},${CYAN})`:`linear-gradient(135deg,${NEON},${VIOLET})`):'rgba(255,255,255,0.06)';
+  document.getElementById('prof-fav-count').textContent=favs.length;
+  document.getElementById('admin-badge').classList.toggle('hidden',!u||u.role!=='admin');
+  document.getElementById('admin-trigger').classList.toggle('hidden',!u||u.role!=='admin');
+  const btn=document.getElementById('auth-action-btn');
+  if(u){btn.textContent='登出';btn.onclick=logout;}
+  else{btn.textContent='登入 / 註冊';btn.onclick=goLogin;}
+}
+function showAbout(){
+  document.getElementById('about-text').textContent=brand.bio||'（尚未設定，請至後台 → 品牌設定填寫）';
+  document.getElementById('modal-about').classList.remove('hidden');
+}
+function showSocial(){
+  const sl=document.getElementById('social-links');
+  const links=SOCIALS_DEF.filter(s=>brand[s.key]);
+  if(links.length===0){sl.innerHTML='<div style="text-align:center;color:#444;padding:18px 0;font-size:13px">尚未設定社群連結<br><span style="font-size:11px;color:#333">請至後台 → 品牌設定填寫</span></div>';}
+  else{sl.innerHTML=links.map(s=>`<a href="${brand[s.key]}" target="_blank" style="display:flex;align-items:center;gap:11px;text-decoration:none;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.06)"><span style="font-size:19px">${s.icon}</span><div><div style="font-size:13px;color:#fff;font-weight:600">${s.label}</div><div style="font-size:11px;color:#555;margin-top:1px">${brand[s.key]}</div></div><span style="margin-left:auto;color:${NEON};font-size:13px">↗</span></a>`).join('');}
+  document.getElementById('modal-social').classList.remove('hidden');
+}
+function closeModal(id){document.getElementById('modal-'+id).classList.add('hidden');}
+function toggleDark(){const t=document.getElementById('dark-toggle');t.classList.toggle('on');}
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+function goLogin(){
+  document.getElementById('app').classList.add('hidden');
+  const a=document.getElementById('auth');
+  a.classList.remove('hidden');
+  setTimeout(()=>a.style.opacity='1',50);
+  // Build avatar grid
+  const g=document.getElementById('avatar-grid');
+  g.innerHTML='';
+  AVATARS.forEach((av,i)=>{
+    const b=document.createElement('button');
+    b.className='avatar-pick'+(i===selectedAvatar?' selected':'');
+    b.textContent=av;
+    b.onclick=()=>{selectedAvatar=i;document.querySelectorAll('.avatar-pick').forEach((x,j)=>x.classList.toggle('selected',j===i));};
+    g.appendChild(b);
+  });
+}
+function switchAuthMode(m){
+  authMode=m;
+  document.getElementById('reg-fields').classList.toggle('hidden',m!=='register');
+  document.getElementById('confirm-field').classList.toggle('hidden',m!=='register');
+  document.getElementById('pw-label').textContent=m==='login'?'密碼':'密碼 (至少6字元)';
+  document.getElementById('auth-submit').textContent=m==='login'?'登入':'建立帳號';
+  document.getElementById('auth-tab-login').style.cssText=m==='login'?'flex:1;border:none;border-radius:9px;padding:8px 0;background:rgba(191,0,255,0.18);color:#BF00FF;font-size:13px;font-weight:700':'flex:1;border:none;border-radius:9px;padding:8px 0;background:none;color:#666;font-size:13px';
+  document.getElementById('auth-tab-reg').style.cssText=m==='register'?'flex:1;border:none;border-radius:9px;padding:8px 0;background:rgba(191,0,255,0.18);color:#BF00FF;font-size:13px;font-weight:700':'flex:1;border:none;border-radius:9px;padding:8px 0;background:none;color:#666;font-size:13px';
+  clearAuthMsg();
+}
+function clearAuthMsg(){document.getElementById('auth-err').style.display='none';document.getElementById('auth-ok').style.display='none';}
+function showAuthErr(m){const e=document.getElementById('auth-err');e.textContent='⚠ '+m;e.style.display='block';}
+function showAuthOk(m){const e=document.getElementById('auth-ok');e.textContent=m;e.style.display='block';}
+function togglePw(){showPwFlag=!showPwFlag;const t=document.getElementById('auth-pw').type=showPwFlag?'text':'password';document.getElementById('auth-pw2').type=showPwFlag?'text':'password';document.getElementById('pw-eye').textContent=showPwFlag?'🙈':'👁';}
+function submitAuth(){
+  const email=document.getElementById('auth-email').value.trim().toLowerCase();
+  const pw=document.getElementById('auth-pw').value;
+  const name=document.getElementById('auth-name').value.trim();
+  const pw2=document.getElementById('auth-pw2').value;
+  clearAuthMsg();
+  if(authMode==='register'&&!name){showAuthErr('請輸入暱稱');return;}
+  if(!email||!email.includes('@')){showAuthErr('請輸入正確的電子郵件');return;}
+  if(!pw){showAuthErr('請輸入密碼');return;}
+  if(pw.length<6){showAuthErr('密碼至少 6 個字元');return;}
+  if(authMode==='register'&&pw!==pw2){showAuthErr('兩次密碼不一致');return;}
+  if(authMode==='login'){
+    if(email===ADMIN_ACCT.email&&pw===ADMIN_ACCT.pw){loginUser(ADMIN_ACCT);return;}
+    const u=registeredUsers.find(u=>u.email===email&&u.pw===pw);
+    if(u)loginUser(u);else showAuthErr('電子郵件或密碼錯誤');
+  } else {
+    if(email===ADMIN_ACCT.email||registeredUsers.some(u=>u.email===email)){showAuthErr('此電子郵件已被使用');return;}
+    const nu={uid:genId(),email,pw,role:'fan',name,avatar:AVATARS[selectedAvatar]};
+    registeredUsers.push(nu);
+    showAuthOk('🎉 註冊成功！');
+    setTimeout(()=>loginUser(nu),800);
+  }
+}
+function loginUser(u){
+  currentUser=u;
+  try{localStorage.setItem('czy_current_user',JSON.stringify(u));}catch(e){}
+  document.getElementById('auth').style.opacity='0';
+  setTimeout(()=>{document.getElementById('auth').classList.add('hidden');document.getElementById('app').classList.remove('hidden');updateProfile();},500);
+}
+function logout(){currentUser=null;try{localStorage.removeItem("czy_current_user");}catch(e){}updateProfile();}
+
+// ── Pages ────────────────────────────────────────────────────────────────────
+const PAGES=['home','playlist','lyrics','profile'];
+function goPage(p){
+  PAGES.forEach(id=>{
+    document.getElementById('page-'+id).classList.toggle('hidden',id!==p);
+    document.getElementById('nav-'+id).classList.toggle('active',id===p);
+  });
+  if(p==='lyrics')updateLyricsDisplay();
+}
+
+// ── Admin ────────────────────────────────────────────────────────────────────
+function openAdmin(){document.getElementById('admin').classList.remove('hidden');renderAdminSongs();renderStats();renderBrandForm();renderStatMini();}
+function closeAdmin(){document.getElementById('admin').classList.add('hidden');}
+function switchAdminTab(t){
+  adminTab=t;
+  ['songs','brand','stats'].forEach(id=>{
+    document.getElementById('ac-'+id).classList.toggle('hidden',id!==t);
+    document.getElementById('atab-'+id).classList.toggle('active',id===t);
+  });
+}
+function renderAdminSongs(){
+  const q=document.getElementById('song-search').value;
+  const cat=document.getElementById('song-cat-filter').value;
+  const filtered=songs.filter(s=>(s.name.includes(q)||s.artist.includes(q))&&(cat==='all'||s.cat===cat));
+  const el=document.getElementById('admin-song-list');
+  el.innerHTML='';
+  filtered.forEach(s=>{
+    const d=document.createElement('div');d.className='song-row';
+    d.innerHTML=`
+      <div style="width:40px;height:40px;border-radius:7px;background:linear-gradient(135deg,${s.colors[0]},${s.colors[1]});display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🎵</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;color:#e8e8e8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.name}</div>
+        <div style="display:flex;gap:5px;margin-top:3px">
+          <span style="font-size:10px;color:${VIOLET};background:rgba(155,77,255,0.15);border-radius:4px;padding:1px 5px">${s.cat}</span>
+          <span style="font-size:10px;color:#555">${fmt(s.dur)}</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        <button class="admin-btn" onclick="togglePub('${s.id}')" style="background:${s.pub?'rgba(34,197,94,0.15)':'rgba(255,255,255,0.06)'};border:1px solid ${s.pub?'rgba(34,197,94,0.3)':'rgba(255,255,255,0.1)'};color:${s.pub?'#22c55e':'#555'}">${s.pub?'✓發布':'草稿'}</button>
+        <button class="admin-btn" onclick="toggleFeat('${s.id}')" style="background:${s.featured?'rgba(0,228,255,0.15)':'rgba(255,255,255,0.06)'};border:1px solid ${s.featured?'rgba(0,228,255,0.3)':'rgba(255,255,255,0.1)'};color:${s.featured?CYAN:'#555'}">⭐</button>
+        <button class="admin-btn" onclick="openSongForm(songs.find(x=>x.id==='${s.id}'))" style="background:rgba(155,77,255,0.15);border:1px solid rgba(155,77,255,0.3);color:${VIOLET}">編輯</button>
+        <button class="admin-btn" onclick="deleteSong('${s.id}')" style="background:none;border:1px solid rgba(255,255,255,0.08);color:#555">🗑</button>
+      </div>`;
+    el.appendChild(d);
+  });
+  renderStatMini();
+}
+function togglePub(id){const s=songs.find(x=>x.id===id);if(s)s.pub=!s.pub;renderAdminSongs();renderHome();}
+function toggleFeat(id){const s=songs.find(x=>x.id===id);if(s)s.featured=!s.featured;renderAdminSongs();renderHome();}
+function deleteSong(id){songs=songs.filter(s=>s.id!==id);renderAdminSongs();renderHome();}
+function renderStatMini(){
+  document.getElementById('stat-mini').innerHTML=[['總歌曲',songs.length,'#fff'],['已發布',songs.filter(s=>s.pub).length,'#22c55e'],['推薦',songs.filter(s=>s.featured).length,CYAN]].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:11px;color:#666">${l}</span><span style="font-size:11px;color:${c};font-weight:700">${v}</span></div>`).join('');
+}
+function renderStats(){
+  document.getElementById('stats-cards').innerHTML=[['🎵','總歌曲',songs.length,'#fff'],['✓','已發布',songs.filter(s=>s.pub).length,'#22c55e'],['⭐','推薦',songs.filter(s=>s.featured).length,CYAN]].map(([ic,lb,v,c])=>`<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:14px;text-align:center"><div style="font-size:22px;margin-bottom:5px">${ic}</div><div style="font-size:22px;font-weight:700;color:${c}">${v}</div><div style="font-size:11px;color:#666;margin-top:2px">${lb}</div></div>`).join('');
+  document.getElementById('stats-bars').innerHTML=['華語流行','台語流行'].map((cat,i)=>{
+    const cnt=songs.filter(s=>s.cat===cat).length;
+    const pct=songs.length?cnt/songs.length*100:0;
+    const c=i===0?VIOLET:'#00FFCC';
+    return `<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:12px;color:#ccc">${cat}</span><span style="font-size:12px;color:${c}">${cnt} 首</span></div><div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px"><div style="height:100%;width:${pct}%;background:${c};border-radius:2px"></div></div></div>`;
+  }).join('');
+}
+function renderBrandForm(){
+  document.getElementById('brand-bio').value=brand.bio||'';
+  const sf=document.getElementById('social-fields');
+  sf.innerHTML=SOCIALS_DEF.map(s=>`<div style="margin-bottom:12px"><div style="font-size:12px;color:#888;margin-bottom:4px">${s.icon} ${s.label}</div><input class="si" id="sf-${s.key}" value="${brand[s.key]||''}" placeholder="${s.ph}"></div>`).join('');
+}
+function saveBrand(){
+  brand.bio=document.getElementById('brand-bio').value;
+  SOCIALS_DEF.forEach(s=>{const el=document.getElementById('sf-'+s.key);if(el)brand[s.key]=el.value;});
+  showToast('品牌設定已儲存 ✓');
+}
+
+// ── Song Form ─────────────────────────────────────────────────────────────────
+function openSongForm(song){
+  editingFormId=song.id||null;
+  document.getElementById('form-title').textContent=editingFormId?'編輯歌曲':'新增歌曲';
+  document.getElementById('form-save-btn').textContent=editingFormId?'儲存變更':'✓ 上架歌曲';
+  document.getElementById('f-name').value=song.name||'';
+  document.getElementById('f-artist').value=song.artist||'蔡芷妍';
+  document.getElementById('f-dur').value=song.dur?fmt(song.dur):'';
+  document.getElementById('f-date').value=song.date||new Date().toISOString().slice(0,10);
+  document.getElementById('f-cat').value=song.cat||'華語流行';
+  document.getElementById('f-emo').value=song.emo||'失去你';
+  document.getElementById('f-quote').value=song.quote||'';
+  document.getElementById('f-lrc').value=song.lyrics?song.lyrics.map(l=>`[${fmt(l.t)}] ${l.x}`).join('\n'):'';
+  document.getElementById('song-form').classList.remove('hidden');
+}
+function closeSongForm(){document.getElementById('song-form').classList.add('hidden');editingFormId=null;}
+function parseDur(s){const[m,sec]=(s||'').split(':').map(Number);return(m||0)*60+(sec||0);}
+function parseLrc(r){return r.split('\n').map(l=>{const m=l.match(/\[(\d+):(\d+)\]\s*(.*)/);return m?{t:+m[1]*60+ +m[2],x:m[3]}:null;}).filter(Boolean);}
+function saveSong(){
+  const name=document.getElementById('f-name').value.trim();
+  const durStr=document.getElementById('f-dur').value;
+  if(!name){alert('請輸入歌名');return;}
+  if(!durStr.match(/^\d{1,2}:\d{2}$/)){alert('時間格式：mm:ss');return;}
+  const data={id:editingFormId||genId(),name,artist:document.getElementById('f-artist').value,dur:parseDur(durStr),cat:document.getElementById('f-cat').value,emo:document.getElementById('f-emo').value,date:document.getElementById('f-date').value,quote:document.getElementById('f-quote').value,lyrics:parseLrc(document.getElementById('f-lrc').value),colors:['#1a0a0a','#3a0a3a',NEON],pub:false,featured:false};
+  if(editingFormId){const i=songs.findIndex(s=>s.id===editingFormId);if(i>=0){data.pub=songs[i].pub;data.featured=songs[i].featured;songs[i]=data;}}
+  else songs.unshift(data);
+  showToast(editingFormId?'歌曲已更新 ✓':'歌曲已新增 ✓');
+  closeSongForm();renderAdminSongs();renderHome();
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+function showToast(m,isErr=false){
+  const t=document.getElementById('toast');
+  t.textContent=m;
+  t.style.background=isErr?'#7f1d1d':'#14532d';
+  t.style.borderColor=isErr?'#ef4444':'#22c55e';
+  t.style.display='block';
+  setTimeout(()=>t.style.display='none',2400);
+}
+
+// ── Back from Auth ───────────────────────────────────────────────────────────
+function backFromAuth(){
+  document.getElementById('auth').style.opacity='0';
+  setTimeout(()=>{
+    document.getElementById('auth').classList.add('hidden');
+    document.getElementById('app').classList.remove('hidden');
+  },400);
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+window.onload=()=>initSplash();
+</script>
+</body>
+</html>
